@@ -9,9 +9,9 @@ int main(int argc, char const *argv[])
     int fd, numberOfCharacters;
     char buffer[200], *output;
 
-    if(argc == 1)
+    if(argc != 2)
     {
-        write(2, "No arguments!\n", 14);
+        write(2, "Not enough or too much arguments!\n", 34);
         exit(EXIT_FAILURE);
     }
 
