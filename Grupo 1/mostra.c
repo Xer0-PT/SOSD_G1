@@ -23,6 +23,9 @@ int main(int argc, char *argv[])
 	}
 	
 	numberOfCharacters = read(fd, buffer, sizeof(buffer));
+	// read não acrescenta o caratere terminal
+	buffer[numberOfCharacters - 1] = '\0';
+	
 	write(1, buffer, numberOfCharacters);
 	close(fd);
 

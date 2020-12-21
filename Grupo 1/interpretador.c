@@ -5,48 +5,54 @@
 
 int main(int argc, char const *argv[])
 {
-    char tempCommandLine[200];
-    char *commandLine;
-    char command[30];
-    char file[30];
-    char *delimiter = " ";
+    char commandLine[200];
+    char *command;
+    char *argument;
+    char *token;
+    char *newargv[] = {NULL};
+
+
 
     int numberOfCharacters;
 
-    while (strcmp(tempCommandLine, "termina\n") != 0)
+    while (1)
     {
         // Inicia a insercao com %
         write(1, "% ", 2);
 
-        numberOfCharacters = read(0, tempCommandLine, 200);
+        numberOfCharacters = read(0, commandLine, sizeof(commandLine));
+        // read não acrescenta o caratere terminal - também resolve o problema de haver lixo binário
+        commandLine[numberOfCharacters - 1] = '\0';
 
         // Se o comando inserido for "termina" fecha o programa
-        if(strcmp(tempCommandLine, "termina\n") == 0) exit(1);
+        if(strcmp(commandLine, "termina") == 0) exit(EXIT_SUCCESS);
 
-        strcpy(command, strtok(tempCommandLine, delimiter));
-        //strcpy(file, strtok(NULL, delimiter));
+        // Dividir o input do user para obter um comando e um argumento
+        // Função strtok guarda a primeira palavra antes do delimitador
+        token = strtok(commandLine, " ");
+        // Alocamos memória para poder guardar essa palavra na variável command
+        command = malloc(sizeof(token));
+        strcpy(command, token);
 
-        printf("%s\n", command);
-        //printf("%s\n", file);
+        token = strtok(NULL, "\0");
+        argument = malloc(sizeof(token));
+        strcpy(argument, token);
+    
+//        printf("%s\n\n%s\n\n", command, argument);
 
 
-        /* commandLine = malloc(numberOfCharacters * sizeof(char) + 1); */
-/*        commandLine = malloc(numberOfCharacters);
-        strcpy(commandLine, tempCommandLine);
+        // A partir daqui começam os forks e cenas
+        
+        /* ------------------
+         Isto está mal
+         ------------------ */
 
+        newargv[0] = command;
+        newargv[1] = argument;
 
-        write(1, commandLine, sizeof(commandLine));
- */
-/*         
-        // Token aponta para a primeira palavra
-        strcpy(command, strtok(tempCommandLine, delimiter));
+        fork();
+        execv(newargv[0], newargv[1]);
 
-        // Token aponta para a segunda palavra
-        strcpy(file, strtok(NULL, delimiter));
-
-        write(1, command, sizeof(command));
-        write(1, file, sizeof(file));
- */
     }
     
     return 0;
