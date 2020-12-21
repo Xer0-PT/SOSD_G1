@@ -5,34 +5,48 @@
 
 int main(int argc, char const *argv[])
 {
-    char command[10];
+    char tempCommandLine[200];
+    char *commandLine;
+    char command[30];
+    char file[30];
+    char *delimiter = " ";
+
     int numberOfCharacters;
 
-    while (strcmp(command, "termina\n") != 0)
+    while (strcmp(tempCommandLine, "termina\n") != 0)
     {
-        //Inicia a insercao com %
+        // Inicia a insercao com %
         write(1, "% ", 2);
-        numberOfCharacters = read(0, command, sizeof(command));
 
-        //write(1, command, numberOfCharacters);
+        numberOfCharacters = read(0, tempCommandLine, 200);
 
-        if(strcmp(command, "mostra\n") == 0)
-        {
-            write(0, "./mostra", 6);
-        }
-    }
-    
-    exit(1);
+        // Se o comando inserido for "termina" fecha o programa
+        if(strcmp(tempCommandLine, "termina\n") == 0) exit(1);
 
-    // Inicializa a sempre a 1
-    static int first_time = 1;
+        strcpy(command, strtok(tempCommandLine, delimiter));
+        //strcpy(file, strtok(NULL, delimiter));
 
-    // Se for a primeira vez, limpa o ecra
-    if( first_time )
-    {
-        const char* CLEAR_SCREEN_ANSI = "\e[1;1H\e[2J";
-        write(1, CLEAR_SCREEN_ANSI, 12);
-        first_time = 0;
+        printf("%s\n", command);
+        //printf("%s\n", file);
+
+
+        /* commandLine = malloc(numberOfCharacters * sizeof(char) + 1); */
+/*        commandLine = malloc(numberOfCharacters);
+        strcpy(commandLine, tempCommandLine);
+
+
+        write(1, commandLine, sizeof(commandLine));
+ */
+/*         
+        // Token aponta para a primeira palavra
+        strcpy(command, strtok(tempCommandLine, delimiter));
+
+        // Token aponta para a segunda palavra
+        strcpy(file, strtok(NULL, delimiter));
+
+        write(1, command, sizeof(command));
+        write(1, file, sizeof(file));
+ */
     }
     
     return 0;
