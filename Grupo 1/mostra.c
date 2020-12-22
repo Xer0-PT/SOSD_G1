@@ -2,6 +2,10 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+#define ARGUMENTS   "  > Not enough or too much arguments!\n"
+#define NO_FILE     "  > File not found!\n"
+#define SUCCESS     "\n  > Command succeeded!\n"
+
 // Função para mostrar conteúdo do ficheiro
 int main(int argc, char *argv[])
 {
@@ -10,7 +14,7 @@ int main(int argc, char *argv[])
 
 	if(argc != 2)
     {
-        write(2, "Not enough or too much arguments!\n", 34);
+        write(2, ARGUMENTS, sizeof(ARGUMENTS));
         exit(EXIT_FAILURE);
     }
 
@@ -18,7 +22,7 @@ int main(int argc, char *argv[])
 
 	if (fd == -1)
 	{
-		write(2, "File not found!\n", 16);
+		write(2, NO_FILE, sizeof(NO_FILE));
 		exit(EXIT_FAILURE);
 	}
 	
@@ -29,7 +33,7 @@ int main(int argc, char *argv[])
 	write(1, buffer, numberOfCharacters);
 	close(fd);
 
-	write(1, "Command succeeded!\n", 19);
+	write(1, SUCCESS, sizeof(SUCCESS));
 
 	return 0;
 }

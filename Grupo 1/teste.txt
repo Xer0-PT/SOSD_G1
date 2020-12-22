@@ -1,2 +1,1 @@
-ola
-ola
+Isto é o conteúdo do ficheiro teste.txt

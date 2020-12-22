@@ -5,6 +5,10 @@
 #include <sys/stat.h>
 #include <pwd.h>
 
+#define ARGUMENTS   "  > Not enough or too much arguments!\n"
+#define NO_FILE     "  > File not found!\n"
+#define SUCCESS     "\n  > Command succeeded!\n"
+
 int main(int argc, char const *argv[])
 {
     struct stat file;
@@ -15,17 +19,17 @@ int main(int argc, char const *argv[])
 
     if(argc != 2)
     {
-        write(2, "Not enough or too much arguments!\n", 34);
+        write(2, ARGUMENTS, sizeof(ARGUMENTS));
         exit(EXIT_FAILURE);
     }
 
     if (stat(argv[1], &file) == -1)
     {
-        perror("Error");
+        write(2, NO_FILE, sizeof(NO_FILE));
         exit(EXIT_FAILURE);
     }
 
-    write(1, "File Type: ", 11);
+    write(1, "\t> File Type:\t\t", 16);
 
     switch (file.st_mode & S_IFMT) {
     case S_IFBLK:  write(1, "block device\n", 13);      break;
@@ -43,17 +47,17 @@ int main(int argc, char const *argv[])
 
     sprintf(output, "%ld\n", inode);
 
-    write(1, "I-node number: ", 15);
+    write(1, "\t> I-node number:\t", 18);
     write(1, output, sizeof(output));
 
     pws = getpwuid(file.st_uid);
 
-    write(1, "Owner: ", 7);
+    write(1, "\t> Owner:\t\t\t", 11);
     write(1, pws->pw_name, sizeof(pws->pw_name));
 
-    puts("");
-
     //printf("\n%s\n", pws->pw_name);
+
+    write(1, SUCCESS, sizeof(SUCCESS));
 
     return 0;
 }

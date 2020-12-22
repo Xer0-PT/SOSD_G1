@@ -3,13 +3,16 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define ARGUMENTS   "  > Not enough or too much arguments!\n"
+#define NO_FILE     "  > File not found!\n"
+
 int main(int argc, char const *argv[])
 {
     int fd;
 
     if(argc != 2)
     {
-        write(2, "Not enough or too much arguments!\n", 34);
+        write(2, ARGUMENTS, sizeof(ARGUMENTS));
         exit(EXIT_FAILURE);
     }
     
@@ -17,12 +20,12 @@ int main(int argc, char const *argv[])
 
     if( fd == -1 )
     {
-        write(2, "File not found!\n", 16);
+        write(2, NO_FILE, sizeof(NO_FILE));
         exit(EXIT_FAILURE);
     }
 
     remove(argv[1]);
-    write(1, "File removed!\n", 14);
+    write(1, "\t> File removed!\n", 17);
 
     return 0;
 }
