@@ -2,25 +2,47 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <dirent.h>
+#include <unistd.h>
+#include <string.h>
 
 int main (int argc, char **argv) {
 
-    DIR *dirp;
-    struct dirent *dp;
+    DIR *dir;
+    struct dirent *file;
+    char *aux;
 
     if(argc == 1)
     {
-        dirp = opendir(".");    
+        dir = opendir(".");    
     
-        if (!dirp) 
+        if (!dir) 
         {
             perror("opendir()");
             exit(1);
         }
 
-        while ((dp = readdir(dirp))) 
+        while ((file = readdir(dir))) 
         {
-            puts(dp->d_name);
+            if ( !strcmp(file->d_name, ".") || !strcmp(file->d_name, "..") )
+            {
+                   
+            } 
+            else
+            {
+                if (file->d_type == 4)
+                {
+                    write(1, "Directory:\n", 12);
+                }
+                if (file->d_type == 8)
+                {
+                    write(1, "File:\n", 7);
+                }
+                aux = malloc(sizeof(file->d_name));
+                strcpy(aux, file->d_name);
+                write(1, aux, sizeof(file->d_name));
+                write(1, "\n", 2);
+                write(1, "\n", 2);
+            }
         }
 
         if (errno) 
@@ -32,17 +54,36 @@ int main (int argc, char **argv) {
 
     if (argc == 2)
     {
-        dirp = opendir(argv[2]); // teste
+        dir = opendir(argv[1]);// teste
 
-        if (!dirp) 
+        if (!dir) 
         {
             perror("opendir()");
             exit(1);
         }
 
-        while ((dp = readdir(dirp))) 
+        while ((file = readdir(dir))) 
         {
-            puts(dp->d_name);
+            if ( !strcmp(file->d_name, ".") || !strcmp(file->d_name, "..") )
+            {
+                   
+            } 
+            else
+            {
+                if (file->d_type == 4)
+                {
+                    write(1, "Directory:\n", 12);
+                }
+                if (file->d_type == 8)
+                {
+                    write(1, "File:\n", 7);
+                }
+                aux = malloc(sizeof(file->d_name));
+                strcpy(aux, file->d_name);
+                write(1, aux, sizeof(file->d_name));
+                write(1, "\n", 2);
+                write(1, "\n", 2);
+            }
         }
 
         if (errno) 
