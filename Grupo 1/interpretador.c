@@ -8,13 +8,14 @@ int main(int argc, char const *argv[])
 {
     char commandLine[200];
     char *command;
-    char *argument;
+    char *arguments[200];
     char *token;
     char *newargv[] = {NULL};
     char delimiter[] = " \t\r\n\v\f\0";
 
     int numberOfCharacters;
     int pid;
+    int i;
 
     while (1)
     {
@@ -34,25 +35,34 @@ int main(int argc, char const *argv[])
             //!!! Porque há comandos que não precisam de argumentos
             //!!! E há um comando que precisa de 3 argumentos
             
-
-
             // Dividir o input do user para obter um comando e um argumento
             // Função strtok guarda a primeira palavra antes do delimitador
             token = strtok(commandLine, delimiter);
+
             // Alocamos memória para poder guardar essa palavra na variável command
             command = malloc(sizeof(token));
             strcpy(command, token);
 
-            token = strtok(NULL, delimiter);
+            i = 0;
+            while (token != NULL)
+            {
+                arguments[i] = token;
+                token = strtok(NULL, delimiter);
+                i++;
+            }
+            
+            //arguments[i] = NULL;
+
+            /* token = strtok(NULL, delimiter);
             argument = malloc(sizeof(token));
-            strcpy(argument, token);
+            strcpy(argument, token); */
 
             pid = fork();
 
             if(pid == 0) // Processo Filho
             {
                 puts("Filho iniciou!");
-                if(execl(command, command, argument, NULL) == -1)
+                if(execv(command, arguments) == -1)
                     perror("Command");
             }
             else // Processo Pai
@@ -62,7 +72,6 @@ int main(int argc, char const *argv[])
                 printf("\nTerminou comando '%s' com codigo '%d'.", command, pid);
 
                 free(command);
-                free(argument);
             }
         }            
     }    
