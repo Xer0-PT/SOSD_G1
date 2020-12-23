@@ -21,6 +21,7 @@ int main(int argc, char const *argv[])
         write(1, "% ", 2);
 
         numberOfCharacters = read(0, commandLine, sizeof(commandLine));
+        
         // read não acrescenta o caratere terminal - também resolve o problema de haver lixo binário
         commandLine[numberOfCharacters] = '\0';
 
