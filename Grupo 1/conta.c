@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define ARGUMENTS   "  > Not enough or too much arguments!\n"
-#define NO_FILE     "  > File not found!\n"
-#define SUCCESS     "\n  > Command succeeded!\n"
+#define ARGUMENTS   "\n> Not enough or too much arguments!\n"
+#define NO_FILE     "\n> File not found!\n"
+#define SUCCESS     "\n\n> Command succeeded!\n"
 
 // Função para mostrar o número de carateres num ficheiro
 int main(int argc, char const *argv[])
@@ -32,6 +32,7 @@ int main(int argc, char const *argv[])
 
     sprintf(output, "%d\n", numberOfCharacters);
 
+    write(1, "\nNumber of characters: ", 23);
     write(1, output, sizeof(output));
     close(fd);
 

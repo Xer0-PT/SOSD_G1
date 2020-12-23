@@ -2,9 +2,9 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#define ARGUMENTS   "  > Not enough or too much arguments!\n"
-#define NO_FILE     "  > File not found!\n"
-#define SUCCESS     "\n  > Command succeeded!\n"
+#define ARGUMENTS   "\n> Not enough or too much arguments!\n"
+#define NO_FILE     "\n> File not found!\n"
+#define SUCCESS     "\n\n> Command succeeded!\n"
 
 // Função para mostrar conteúdo do ficheiro
 int main(int argc, char *argv[])
@@ -28,8 +28,8 @@ int main(int argc, char *argv[])
 	
 	numberOfCharacters = read(fd, buffer, sizeof(buffer));
 	// read não acrescenta o caratere terminal
-	buffer[numberOfCharacters - 1] = '\0';
-	
+	buffer[numberOfCharacters] = '\0';
+	write(1, "\nFile Content:\n\n", 16);
 	write(1, buffer, numberOfCharacters);
 	close(fd);
 

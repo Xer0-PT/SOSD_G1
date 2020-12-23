@@ -5,9 +5,9 @@
 #include <sys/stat.h>
 #include <pwd.h>
 
-#define ARGUMENTS   "  > Not enough or too much arguments!\n"
-#define NO_FILE     "  > File not found!\n"
-#define SUCCESS     "\n  > Command succeeded!\n"
+#define ARGUMENTS   "\n> Not enough or too much arguments!\n"
+#define NO_FILE     "\n> File not found!\n"
+#define SUCCESS     "\n\n> Command succeeded!\n"
 
 int main(int argc, char const *argv[])
 {
@@ -29,7 +29,7 @@ int main(int argc, char const *argv[])
         exit(EXIT_FAILURE);
     }
 
-    write(1, "\t> File Type:\t\t", 16);
+    write(1, "\n> File Type:\t\t", 16);
 
     switch (file.st_mode & S_IFMT) {
     case S_IFBLK:  write(1, "block device\n", 13);      break;
@@ -47,15 +47,15 @@ int main(int argc, char const *argv[])
 
     sprintf(output, "%ld\n", inode);
 
-    write(1, "\t> I-node number:\t", 18);
+    write(1, "> I-node number:\t", 17);
     write(1, output, sizeof(output));
 
     pws = getpwuid(file.st_uid);
 
-    write(1, "\t> Owner:\t\t\t", 11);
+    write(1, "> Owner:\t\t\t", 10);
     write(1, pws->pw_name, sizeof(pws->pw_name));
 
-    //printf("\n%s\n", pws->pw_name);
+    printf("\nPrintf Owner: %s\n", pws->pw_name);
 
     write(1, SUCCESS, sizeof(SUCCESS));
 

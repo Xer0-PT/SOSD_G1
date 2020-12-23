@@ -7,7 +7,6 @@
 int main(int argc, char const *argv[])
 {
     char commandLine[200];
-    char *command;
     char *arguments[200];
     char *token;
     char *newargv[] = {NULL};
@@ -24,24 +23,16 @@ int main(int argc, char const *argv[])
 
         numberOfCharacters = read(0, commandLine, sizeof(commandLine));
         // read não acrescenta o caratere terminal - também resolve o problema de haver lixo binário
-        commandLine[numberOfCharacters - 1] = '\0';
+        commandLine[numberOfCharacters] = '\0';
 
         // Se o comando inserido for "termina" fecha o programa
         if(strcmp(commandLine, "termina") == 0) exit(EXIT_SUCCESS);
         
-        if (commandLine != NULL)
-        {
-            //!!! Vai ser preciso alterar isto para colocar os argumentos em array
-            //!!! Porque há comandos que não precisam de argumentos
-            //!!! E há um comando que precisa de 3 argumentos
-            
+        if (strlen(commandLine) != 0)
+        {           
             // Dividir o input do user para obter um comando e um argumento
             // Função strtok guarda a primeira palavra antes do delimitador
             token = strtok(commandLine, delimiter);
-
-            // Alocamos memória para poder guardar essa palavra na variável command
-            command = malloc(sizeof(token));
-            strcpy(command, token);
 
             i = 0;
             while (token != NULL)
@@ -51,27 +42,25 @@ int main(int argc, char const *argv[])
                 i++;
             }
             
-            //arguments[i] = NULL;
-
-            /* token = strtok(NULL, delimiter);
-            argument = malloc(sizeof(token));
-            strcpy(argument, token); */
-
             pid = fork();
 
             if(pid == 0) // Processo Filho
             {
-                puts("Filho iniciou!");
-                if(execv(command, arguments) == -1)
-                    perror("Command");
+                if(execv(arguments[0], arguments) == -1)
+                {
+                    perror("Error");
+                    kill(pid, SIGKILL);
+                }
+            }
+            else if(pid < 0)
+            {
+                perror("Error");
             }
             else // Processo Pai
             {
                 wait(NULL);
 
-                printf("\nTerminou comando '%s' com codigo '%d'.", command, pid);
-
-                free(command);
+                printf("\nCommand '%s' with code '%d' has terminated.\n", arguments[0], pid);
             }
         }            
     }    

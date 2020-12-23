@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define ARGUMENTS   "  > Not enough or too much arguments!\n"
-#define NO_FILE     "  > File not found!\n"
-#define SUCCESS     "\n  > Command succeeded!\n"
+#define ARGUMENTS   "\n> Not enough or too much arguments!\n"
+#define NO_FILE     "\n> File not found!\n"
+#define SUCCESS     "\n\n> Command succeeded!\n"
 
 // argv[1] = origem
 // argv[2] = destino
