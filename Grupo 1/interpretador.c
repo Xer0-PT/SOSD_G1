@@ -21,14 +21,16 @@ int main(int argc, char const *argv[])
         write(1, "% ", 2);
 
         numberOfCharacters = read(0, commandLine, sizeof(commandLine));
-        
+
+
         // read não acrescenta o caratere terminal - também resolve o problema de haver lixo binário
         commandLine[numberOfCharacters] = '\0';
 
         // Se o comando inserido for "termina" fecha o programa
-        if(strcmp(commandLine, "termina") == 0) exit(EXIT_SUCCESS);
+        if(strcmp(commandLine, "termina\n") == 0) exit(EXIT_SUCCESS);
         
-        if (strlen(commandLine) != 0)
+        //if (strlen(commandLine) != 0)
+        if(numberOfCharacters > 1)
         {           
             // Dividir o input do user para obter um comando e um argumento
             // Função strtok guarda a primeira palavra antes do delimitador
@@ -41,16 +43,19 @@ int main(int argc, char const *argv[])
                 token = strtok(NULL, delimiter);
                 i++;
             }
-            
+
+            arguments[i] = NULL;
+
             pid = fork();
 
             if(pid == 0) // Processo Filho
             {
-                if(execv(arguments[0], arguments) == -1)
+                execv(arguments[0], arguments);
+
+                /* if(execv(arguments[0], arguments) == -1)
                 {
                     perror("Error");
-                    kill(pid, SIGKILL);
-                }
+                } */
             }
             else if(pid < 0)
             {
