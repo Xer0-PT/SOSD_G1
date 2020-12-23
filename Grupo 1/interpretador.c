@@ -9,7 +9,6 @@ int main(int argc, char const *argv[])
     char commandLine[200];
     char *arguments[200];
     char *token;
-    char *newargv[] = {NULL};
     char delimiter[] = " \t\r\n\v\f\0";
 
     int numberOfCharacters;
