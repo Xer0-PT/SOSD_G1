@@ -1,7 +1,9 @@
-#include <fcntl.h>
+/* #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <stdio.h>
+#include <stdio.h> */
+
+#include "library.h"
 
 #define ARGUMENTS   "\n> Not enough or too much arguments!\n"
 #define NO_FILE     "\n> File not found!\n"

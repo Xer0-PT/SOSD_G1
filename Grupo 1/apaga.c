@@ -1,10 +1,4 @@
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-
-#define ARGUMENTS   "\n> Not enough or too much arguments!\n"
-#define NO_FILE     "\n> File not found!\n"
+#include "library.h"
 
 int main(int argc, char const *argv[])
 {
@@ -27,9 +21,9 @@ int main(int argc, char const *argv[])
     close(fd);
     
     if(remove(argv[1]) == 0)
-        write(1, "\n> File removed!\n", 17);
+        write(1, FILE_REMOVED, sizeof(FILE_REMOVED));
     else
-        perror("remove(argv[1])");
+        perror("remove()");
     
     return 0;
 }

@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
-#include <sys/wait.h>
+#include "library.h"
 
 #define NR_OF_COMMANDS 6
 #define MAX_STRING_SIZE 11

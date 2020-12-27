@@ -1,11 +1,4 @@
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-
-#define ARGUMENTS   "\n> Not enough or too much arguments!\n"
-#define NO_FILE     "\n> File not found!\n"
-#define SUCCESS     "\n\n> Command succeeded!\n"
+#include "library.h"
 
 // Função para mostrar o número de carateres num ficheiro
 int main(int argc, char const *argv[])
