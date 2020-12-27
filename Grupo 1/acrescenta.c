@@ -24,13 +24,15 @@ int main(int argc, char const *argv[])
     fd1 = open(argv[1], O_RDONLY);
     fd2 = open(argv[2], O_RDWR | O_APPEND);
 
-    if(fd1 == -1 && fd2 == -1)
+    if(fd1 == -1 || fd2 == -1)
     {
         write(2, NO_FILE, sizeof(NO_FILE));
+        close(fd1);
+        close(fd2);
         exit(EXIT_FAILURE);
     }
 
-    numberOfCharacters = read(fd1, buffer, 200);
+    numberOfCharacters = read(fd1, buffer, sizeof(buffer));
     write(fd2, buffer, numberOfCharacters);
 
     close(fd1);

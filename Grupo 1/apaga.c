@@ -18,14 +18,18 @@ int main(int argc, char const *argv[])
     
     fd = open(argv[1], O_RDONLY);
 
-    if( fd == -1 )
+    if(fd == -1)
     {
         write(2, NO_FILE, sizeof(NO_FILE));
         exit(EXIT_FAILURE);
     }
 
-    remove(argv[1]);
-    write(1, "\n> File removed!\n", 17);
-
+    close(fd);
+    
+    if(remove(argv[1]) == 0)
+        write(1, "\n> File removed!\n", 17);
+    else
+        perror("remove(argv[1])");
+    
     return 0;
 }

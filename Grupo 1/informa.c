@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <pwd.h>
+#include <string.h>
 
 #define ARGUMENTS   "\n> Not enough or too much arguments!\n"
 #define NO_FILE     "\n> File not found!\n"
@@ -15,6 +16,7 @@ int main(int argc, char const *argv[])
     struct passwd *pws;
 
     char *output;
+    char *owner;
     long inode;
 
     if(argc != 2)
@@ -53,9 +55,9 @@ int main(int argc, char const *argv[])
     pws = getpwuid(file.st_uid);
 
     write(1, "> Owner:\t\t\t", 10);
-    write(1, pws->pw_name, sizeof(pws->pw_name));
-
-    printf("\nPrintf Owner: %s\n", pws->pw_name);
+    owner = malloc(sizeof(pws->pw_name));
+    strcpy(owner, pws->pw_name);
+    write(1, owner, sizeof(owner));
 
     write(1, SUCCESS, sizeof(SUCCESS));
 
