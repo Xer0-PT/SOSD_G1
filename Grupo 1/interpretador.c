@@ -71,7 +71,8 @@ int main(int argc, char const *argv[])
                 }
                 else // Processo Pai
                 {
-                    wait(NULL);
+                    if(wait(NULL) == -1)
+                        perror("wait");
 
                     printf("\nCommand '%s' with code '%d' has terminated.\n", arguments[0], pid);
                 }
