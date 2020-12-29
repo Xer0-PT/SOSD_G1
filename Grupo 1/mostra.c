@@ -3,7 +3,7 @@
 int main(int argc, char *argv[])
 {
 	int fd, numberOfCharacters;
-	char buffer[200];
+	char buffer[BUFFER_SIZE];
 
 	if(argc != 2)
     {

@@ -16,5 +16,6 @@
 #define NO_FILE         "\n> File not found!\n"
 #define SUCCESS         "\n\n> Command succeeded!\n"
 #define FILE_REMOVED    "\n> File removed!\n"
+#define BUFFER_SIZE     1024
 
 #endif

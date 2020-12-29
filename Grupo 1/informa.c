@@ -35,7 +35,7 @@ int main(int argc, char const *argv[])
     }
 
     inode = file.st_ino;
-    output = malloc(8);
+    output = malloc(sizeof(inode));
 
     sprintf(output, "%ld\n", inode);
 

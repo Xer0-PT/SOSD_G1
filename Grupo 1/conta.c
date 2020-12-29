@@ -4,7 +4,7 @@
 int main(int argc, char const *argv[])
 {
     int fd, numberOfCharacters;
-    char buffer[200], *output;
+    char buffer[BUFFER_SIZE], *output;
 
     if(argc != 2)
     {
@@ -21,7 +21,7 @@ int main(int argc, char const *argv[])
     }
 
     numberOfCharacters = read(fd, buffer, 200);
-    output = malloc(16);
+    output = malloc(sizeof(numberOfCharacters));
 
     sprintf(output, "%d\n", numberOfCharacters);
 

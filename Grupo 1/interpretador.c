@@ -5,8 +5,8 @@
 
 int main(int argc, char const *argv[])
 {
-    char commandLine[200];
-    char *arguments[200];
+    char commandLine[BUFFER_SIZE];
+    char *arguments[BUFFER_SIZE];
     char *token;
     char delimiter[] = " \t\n";
 
@@ -29,7 +29,7 @@ int main(int argc, char const *argv[])
         if(strcmp(commandLine, "\n") == 0)
         {}
         else
-        {     
+        {
             i = 0;
             commandAccepted = -1;   
 
@@ -45,8 +45,8 @@ int main(int argc, char const *argv[])
                 i++;
             }
 
-            // Colocar o seguinte argumento a NULL para utilizar em comandos
-            // que não precisem de mais argumentos - Por exemplo 'lista'
+            // Colocar o último argumento a NULL para utilizar em comandos
+            // que não precisem de argumentos - Por exemplo 'lista'
             arguments[i] = NULL;
 
             // Verificar se o comando inserido faz parte da lista de comandos
@@ -73,8 +73,8 @@ int main(int argc, char const *argv[])
                 {
                     if(wait(NULL) == -1)
                         perror("wait");
-
-                    printf("\nCommand '%s' with code '%d' has terminated.\n", arguments[0], pid);
+                    else
+                        printf("\nCommand '%s' with code '%d' has terminated.\n", arguments[0], pid);
                 }
             }        
         }

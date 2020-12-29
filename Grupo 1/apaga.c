@@ -23,7 +23,10 @@ int main(int argc, char const *argv[])
     if(remove(argv[1]) == 0)
         write(1, FILE_REMOVED, sizeof(FILE_REMOVED));
     else
+    {
         perror("remove()");
+        exit(EXIT_FAILURE);
+    }
     
     return 0;
 }

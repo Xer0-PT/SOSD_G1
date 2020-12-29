@@ -1,13 +1,4 @@
-/* #include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h> */
-
 #include "library.h"
-
-#define ARGUMENTS   "\n> Not enough or too much arguments!\n"
-#define NO_FILE     "\n> File not found!\n"
-#define SUCCESS     "\n\n> Command succeeded!\n"
 
 // argv[1] = origem
 // argv[2] = destino
@@ -15,7 +6,7 @@
 int main(int argc, char const *argv[])
 {
     int fd1, fd2, numberOfCharacters;
-    char buffer[200];
+    char buffer[BUFFER_SIZE];
 
     if(argc != 3)
     {
