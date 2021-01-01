@@ -21,15 +21,26 @@ int main(int argc, char const *argv[])
     }
 
     numberOfCharacters = read(fd, buffer, 200);
-    output = malloc(sizeof(numberOfCharacters));
 
-    sprintf(output, "%d\n", numberOfCharacters);
+    if(numberOfCharacters != -1)
+    {
+        output = malloc(sizeof(numberOfCharacters));
 
-    write(1, "\nNumber of characters: ", 23);
-    write(1, output, sizeof(output));
-    close(fd);
+        sprintf(output, "%d\n", numberOfCharacters);
 
-    write(1, SUCCESS, sizeof(SUCCESS));
+        write(1, "\nNumber of characters: ", 23);
+        write(1, output, sizeof(output));
+        close(fd);
+
+        write(1, SUCCESS, sizeof(SUCCESS));
+        exit(EXIT_SUCCESS);
+    }
+    else
+    {
+        perror("read()");
+        exit(EXIT_FAILURE);
+    }
+    
 
     return 0;
 }

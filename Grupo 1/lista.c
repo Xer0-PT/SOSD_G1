@@ -14,7 +14,7 @@ int main (int argc, char **argv) {
     if (!dir) 
     {
         perror("opendir()");
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     while ((file = readdir(dir))) 
@@ -44,7 +44,7 @@ int main (int argc, char **argv) {
     if (errno) 
     {
         perror("readdir()");
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     return 0;

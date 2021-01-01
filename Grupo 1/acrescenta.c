@@ -26,12 +26,22 @@ int main(int argc, char const *argv[])
     }
 
     numberOfCharacters = read(fd1, buffer, sizeof(buffer));
-    write(fd2, buffer, numberOfCharacters);
 
-    close(fd1);
-    close(fd2);
+    if(numberOfCharacters != -1)
+    {
+        write(fd2, buffer, numberOfCharacters);
 
-    write(1, SUCCESS, sizeof(SUCCESS));
+        close(fd1);
+        close(fd2);
+
+        write(1, SUCCESS, sizeof(SUCCESS));
+        exit(EXIT_SUCCESS);
+    }
+    else
+    {
+        perror("read()");
+        exit(EXIT_FAILURE);
+    }
     
     return 0;
 }

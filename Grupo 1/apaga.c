@@ -21,7 +21,10 @@ int main(int argc, char const *argv[])
     close(fd);
     
     if(remove(argv[1]) == 0)
+    {
         write(1, FILE_REMOVED, sizeof(FILE_REMOVED));
+        exit(EXIT_SUCCESS);
+    }
     else
     {
         perror("remove()");

@@ -50,6 +50,7 @@ int main(int argc, char const *argv[])
     write(1, owner, sizeof(owner));
 
     write(1, SUCCESS, sizeof(SUCCESS));
+    exit(EXIT_SUCCESS);
 
     return 0;
 }
